@@ -1,0 +1,32 @@
+# Render Blueprint: API + static frontend (https://render.com/docs/infrastructure-as-code)
+# 1) Push repo to GitHub/GitLab, then: Dashboard → New → Blueprint → connect this repo.
+# 2) If the API service name is changed, update VITE_API_URL on the static site to match
+#    (https://<api-service-name>.onrender.com) and redeploy the static service.
+
+services:
+  - type: web
+    name: book-bazaar-api
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+
+  - type: web
+    name: book-bazaar-web
+    runtime: static
+    buildCommand: npm install --prefix front-end && npm run build --prefix front-end
+    # Publish folder relative to repository root
+    staticPublishPath: ./front-end/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://book-bazaar-api.onrender.com
