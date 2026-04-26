@@ -3,12 +3,34 @@
 @tailwind components;
 @tailwind utilities;
 
+a.active .nav-hr,
 a.active hr {
   display: block;
 }
 
 * {
   font-family: Outfit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 .prata-regular {
@@ -25,5 +47,9 @@ a.active hr {
   a.active {
     background-color: black;
     color: white;
+  }
+  .dark a.active {
+    background-color: rgb(28 25 23);
+    color: rgb(250 250 249);
   }
 }

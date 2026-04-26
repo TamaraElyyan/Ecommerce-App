@@ -1,0 +1,202 @@
+[
+  {
+    "_id": "1",
+    "name": "Dune",
+    "description": "أيقونة الخيال العلمي: صراع على عالم صحراوي، التوابل، والمستقبل البشري. رواية مؤثرة لفرانك هربرت.",
+    "descriptionEn": "Landmark science fiction: power, spice, and survival on a harsh desert world—Frank Herbert’s unforgettable epic.",
+    "price": 18,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780441172719-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780441172719-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780441172719-S.jpg"
+    ],
+    "category": "Fiction",
+    "subCategory": "Science Fiction",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345448,
+    "bestSeller": true,
+    "author": "Frank Herbert",
+    "publisher": "Ace Books",
+    "isbn": "978-0-441-117271-9"
+  },
+  {
+    "_id": "2",
+    "name": "Atomic Habits",
+    "description": "دليل عملي لبناء عادات صغيرة تمنح نتائج كبيرة: التحسين المستمر والسلوك اليومي.",
+    "descriptionEn": "A practical guide to small habits with outsized results: continuous improvement, identity-based change, and daily behavior that compounds over time.",
+    "price": 24,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9781847941831-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9781847941831-S.jpg"
+    ],
+    "category": "Non-Fiction",
+    "subCategory": "Self-Help",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345450,
+    "bestSeller": true,
+    "author": "James Clear",
+    "publisher": "Avery",
+    "isbn": "978-0-7352-1929-6"
+  },
+  {
+    "_id": "3",
+    "name": "Sapiens: A Brief History of Humankind",
+    "description": "رحلة عبر تاريخ البشرية: من الصيادين والجامعيين إلى عصر التكنولوجيا.",
+    "descriptionEn": "A sweeping look at our species: from hunter-gatherers to the modern world of science, culture, and technology.",
+    "price": 22,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780062316110-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780062316110-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780062316110-S.jpg"
+    ],
+    "category": "Non-Fiction",
+    "subCategory": "History",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345452,
+    "bestSeller": true,
+    "author": "Yuval Noah Harari",
+    "publisher": "Harper",
+    "isbn": "978-0-06-231611-0"
+  },
+  {
+    "_id": "4",
+    "name": "The Hobbit",
+    "description": "مغامرة خيالية كلاسيكية: بيلبو باغنز، الأقزام، ومواجهة التنين سموغ.",
+    "descriptionEn": "A classic fantasy adventure: Bilbo Baggins, thirteen dwarves, and a fateful quest toward the dragon Smaug.",
+    "price": 16,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780547928227-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780547928227-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780547928227-S.jpg"
+    ],
+    "category": "Fiction",
+    "subCategory": "Fantasy",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345454,
+    "bestSeller": true,
+    "author": "J.R.R. Tolkien",
+    "publisher": "Houghton Mifflin",
+    "isbn": "978-0-544-17022-0"
+  },
+  {
+    "_id": "5",
+    "name": "1984",
+    "description": "دستوبيا بريطانية: المراقبة، الحقيقة، والحرية في عالم يسيطر عليه «الأخ الأكبر».",
+    "descriptionEn": "A powerful dystopia: mass surveillance, manipulated truth, and the struggle for freedom under totalitarian rule.",
+    "price": 15,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780452284234-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780452284234-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780452284234-S.jpg"
+    ],
+    "category": "Fiction",
+    "subCategory": "Classic",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345456,
+    "bestSeller": false,
+    "author": "George Orwell",
+    "publisher": "Secker & Warburg",
+    "isbn": "978-0-452-28423-4"
+  },
+  {
+    "_id": "6",
+    "name": "Educated",
+    "description": "مذكرات ناجية عن التعليم الذاتي، العائلة، والطريق نحو الحرية الفكرية.",
+    "descriptionEn": "A memoir of leaving an isolated childhood behind—self-education, family, and the fight for a life of one’s own choosing.",
+    "price": 21,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780399590504-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780399590504-S.jpg"
+    ],
+    "category": "Non-Fiction",
+    "subCategory": "Memoir",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345458,
+    "bestSeller": true,
+    "author": "Tara Westover",
+    "publisher": "Random House",
+    "isbn": "978-0-399-59050-4"
+  },
+  {
+    "_id": "7",
+    "name": "Harry Potter and the Sorcerer's Stone",
+    "description": "بداية السلسلة: هاري يكتشف عالم السحر ومدينة هوغوورتس.",
+    "descriptionEn": "Book one of the series: Harry learns he is a wizard and steps into the hidden world of Hogwarts and magic.",
+    "price": 19,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780439708180-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780439708180-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780439708180-S.jpg"
+    ],
+    "category": "Children",
+    "subCategory": "Middle Grade",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345460,
+    "bestSeller": true,
+    "author": "J.K. Rowling",
+    "publisher": "Scholastic",
+    "isbn": "978-0-43-970818-0"
+  },
+  {
+    "_id": "8",
+    "name": "A Brief History of Time",
+    "description": "استكشاف مبسّط للفيزياء: الثقوب السوداء، الانفجار العظيم، وطبيعة الزمن.",
+    "descriptionEn": "A celebrated introduction to cosmology: black holes, the Big Bang, time, and the quest to understand the universe.",
+    "price": 17,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780553380163-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780553380163-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780553380163-S.jpg"
+    ],
+    "category": "Non-Fiction",
+    "subCategory": "Science",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345462,
+    "bestSeller": false,
+    "author": "Stephen Hawking",
+    "publisher": "Bantam",
+    "isbn": "978-0-553-38016-3"
+  },
+  {
+    "_id": "9",
+    "name": "The Midnight Library",
+    "description": "رواية عن فرصة ثانية: مكتبة بين الحياة والموت وكل الأوجه التي كان يمكن أن تكون لها حياتك.",
+    "descriptionEn": "A novel of second chances: between life and death, a library where every book is another life you could have lived.",
+    "price": 20,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780525559481-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780525559481-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780525559481-S.jpg"
+    ],
+    "category": "Fiction",
+    "subCategory": "Novel",
+    "sizes": ["Paperback", "Hardcover"],
+    "date": 1716634345464,
+    "bestSeller": true,
+    "author": "Matt Haig",
+    "publisher": "Viking",
+    "isbn": "978-0-525-55948-1"
+  },
+  {
+    "_id": "10",
+    "name": "Where the Wild Things Are",
+    "description": "قصة أطفال خالدة مع رسوم مميزة: ماكس ومملكة الوحوش.",
+    "descriptionEn": "A beloved picture book: Max sails away to the island of the Wild Things in Maurice Sendak’s iconic story.",
+    "price": 14,
+    "image": [
+      "https://covers.openlibrary.org/b/isbn/9780064431781-L.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780064431781-M.jpg",
+      "https://covers.openlibrary.org/b/isbn/9780064431781-S.jpg"
+    ],
+    "category": "Children",
+    "subCategory": "Picture Books",
+    "sizes": ["Hardcover", "Paperback"],
+    "date": 1716634345466,
+    "bestSeller": false,
+    "author": "Maurice Sendak",
+    "publisher": "Harper & Row",
+    "isbn": "978-0-06-443178-1"
+  }
+]

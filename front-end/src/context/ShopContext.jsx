@@ -1,34 +1,144 @@
-import { createContext, useState } from "react";
-import { products } from "../assets/asserts";
-import PropTypes from "prop-types"; // Import PropTypes
+import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { productsUrl } from "../config";
+import { useLanguage } from "./LanguageContext";
 
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
+  const { t } = useLanguage();
   const currency = "$";
   const delivery_fee = 10;
+  const [products, setProducts] = useState([]);
+  const [productsLoading, setProductsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
-  const [cartItems, setCartItems] = useState({});
+  const CART_KEY = "book-bazaar-cart";
+
+  const normalizeCart = (raw) => {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+    const out = {};
+    for (const pid of Object.keys(raw)) {
+      const sizes = raw[pid];
+      if (!sizes || typeof sizes !== "object" || Array.isArray(sizes)) continue;
+      const inner = {};
+      for (const sz of Object.keys(sizes)) {
+        const n = Number(sizes[sz]);
+        if (Number.isFinite(n) && n > 0) inner[sz] = n;
+      }
+      if (Object.keys(inner).length) out[String(pid)] = inner;
+    }
+    return out;
+  };
+
+  const loadCartFromStorage = () => {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return normalizeCart(parsed);
+    } catch {
+      return {};
+    }
+  };
+
+  const [cartItems, setCartItems] = useState(() => loadCartFromStorage());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_KEY, JSON.stringify(cartItems));
+    } catch {
+      /* ignore */
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      const tryApi = async () => {
+        const r = await fetch(productsUrl(), { cache: "no-store" });
+        if (!r.ok) return false;
+        const data = await r.json();
+        if (!Array.isArray(data) || data.length === 0) return false;
+        if (!cancelled) setProducts(data);
+        return true;
+      };
+
+      const tryLocal = async () => {
+        const r = await fetch("/products.json", { cache: "no-store" });
+        if (!r.ok) return false;
+        const data = await r.json();
+        if (!Array.isArray(data) || data.length === 0) return false;
+        if (!cancelled) setProducts(data);
+        return true;
+      };
+
+      try {
+        if (await tryApi()) return;
+        if (await tryLocal()) return;
+        if (!cancelled) toast.error(t("errors.loadProducts"));
+      } catch {
+        try {
+          if (await tryLocal()) return;
+        } catch {
+          /* ignore */
+        }
+        if (!cancelled) toast.error(t("errors.loadProducts"));
+      } finally {
+        if (!cancelled) setProductsLoading(false);
+      }
+    };
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- load once; toast uses t from mount
+  }, []);
+
+  const refetchProducts = async () => {
+    setProductsLoading(true);
+    try {
+      const tryApi = async () => {
+        const r = await fetch(productsUrl(), { cache: "no-store" });
+        if (!r.ok) return false;
+        const data = await r.json();
+        if (!Array.isArray(data) || data.length === 0) return false;
+        setProducts(data);
+        return true;
+      };
+      if (await tryApi()) return;
+      const r = await fetch("/products.json", { cache: "no-store" });
+      if (r.ok) {
+        const data = await r.json();
+        if (Array.isArray(data) && data.length) setProducts(data);
+      }
+    } catch {
+      /* keep existing */
+    } finally {
+      setProductsLoading(false);
+    }
+  };
 
   const addToCart = async (itemId, size) => {
     if (!size) {
-      toast.error("Select Product Size");
+      toast.error(t("errors.selectFormat"));
       return;
     }
-    let cartData = structuredClone(cartItems);
-    if (cartData[itemId]) {
-      if (cartData[itemId][size]) {
-        cartData[itemId][size] += 1;
+    const id = String(itemId);
+    const cartData = structuredClone(cartItems);
+    if (cartData[id]) {
+      if (cartData[id][size]) {
+        cartData[id][size] += 1;
       } else {
-        cartData[itemId][size] = 1;
+        cartData[id][size] = 1;
       }
     } else {
-      cartData[itemId] = {};
-      cartData[itemId][size] = 1;
+      cartData[id] = {};
+      cartData[id][size] = 1;
     }
     setCartItems(cartData);
   };
@@ -71,9 +181,19 @@ const ShopContextProvider = (props) => {
   //   return totalCount;
   // };
 
-  const updateQuantity = async (itemId, size, quantity) => {
-    let cartData = structuredClone(cartItems);
-    cartData[itemId][size] = quantity;
+  const updateQuantity = (itemId, size, quantity) => {
+    const id = String(itemId);
+    const cartData = structuredClone(cartItems);
+    if (quantity <= 0) {
+      if (!cartData[id]) return;
+      delete cartData[id][size];
+      if (Object.keys(cartData[id]).length === 0) {
+        delete cartData[id];
+      }
+    } else {
+      if (!cartData[id]) cartData[id] = {};
+      cartData[id][size] = quantity;
+    }
     setCartItems(cartData);
   };
 
@@ -94,10 +214,14 @@ const ShopContextProvider = (props) => {
 
   //   setCartItems(cartData);
   // };
+  const findProductById = (id) =>
+    products.find((product) => String(product._id) === String(id));
+
   const getCartAmount = () => {
     let totalAmount = 0;
     for (const items in cartItems) {
-      let itemInfo = products.find((product) => product._id === items);
+      const itemInfo = findProductById(items);
+      if (!itemInfo) continue;
       for (const item in cartItems[items]) {
         try {
           if (cartItems[items][item] > 0) {
@@ -126,20 +250,44 @@ const ShopContextProvider = (props) => {
   //   return totalAmount;
   // };
 
+  const clearCart = () => {
+    setCartItems({});
+  };
+
+  const changeFormat = (itemId, oldSize, newSize) => {
+    if (!oldSize || !newSize || oldSize === newSize) return;
+    const id = String(itemId);
+    const cartData = structuredClone(cartItems);
+    if (!cartData[id] || !cartData[id][oldSize]) return;
+    const qty = cartData[id][oldSize];
+    delete cartData[id][oldSize];
+    if (!cartData[id][newSize]) {
+      cartData[id][newSize] = 0;
+    }
+    cartData[id][newSize] += qty;
+    if (Object.keys(cartData[id]).length === 0) {
+      delete cartData[id];
+    }
+    setCartItems(cartData);
+  };
+
   const value = {
     products,
+    productsLoading,
     currency,
     delivery_fee,
     search,
     setSearch,
-    showSearch,
-    setShowSearch,
     addToCart,
     cartItems,
     getCartCount,
     updateQuantity,
+    changeFormat,
     getCartAmount,
+    findProductById,
     navigate,
+    refetchProducts,
+    clearCart,
   };
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>

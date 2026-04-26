@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-// import PropTypes from "prop-types"; // Import PropTypes
+import { useLanguage } from "../context/LanguageContext";
+import PropTypes from "prop-types";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
 
 const RelatedProducts = ({ category, subCategory }) => {
   const { products } = useContext(ShopContext);
+  const { t } = useLanguage();
   const [related, setRelated] = useState([]);
 
   useEffect(() => {
@@ -15,17 +17,17 @@ const RelatedProducts = ({ category, subCategory }) => {
       productsCopy = productsCopy.filter(
         (item) => subCategory === item.subCategory
       );
-      setRelated(productsCopy.slice(0, 5)); // Updating the state with the filtered products
+      setRelated(productsCopy.slice(0, 5));
     }
-  }, [products]);
+  }, [products, category, subCategory]);
 
   return (
     <div className="my-24">
       <div className=" text-center text-3xl py-2">
-        <Title text1={"RELATED"} text2={"PRODUCTS"} />
+        <Title text1={t("related.t1")} text2={t("related.t2")} />
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4 md:gap-5 gap-y-7 md:gap-y-8">
         {related.map((item, index) => (
           <ProductItem
             key={index}
@@ -40,9 +42,9 @@ const RelatedProducts = ({ category, subCategory }) => {
   );
 };
 
-// RelatedProducts.propTypes = {
-//   category: PropTypes.string.isRequired, // category is required and should be a string
-//   subCategory: PropTypes.string.isRequired, // subCategory is required and should be a string
-// };
+RelatedProducts.propTypes = {
+  category: PropTypes.string.isRequired,
+  subCategory: PropTypes.string.isRequired,
+};
 
 export default RelatedProducts;
