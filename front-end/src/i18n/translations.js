@@ -497,4 +497,4 @@ export const messages = {
 };
 
 export const supportedLanguages = ["en", "ar"];
-export const defaultLanguage = "ar";
+export const defaultLanguage = "en";
